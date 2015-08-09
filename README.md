@@ -5,7 +5,7 @@ Overload-like type-based functionality for javascript
 Overload allows you to specify different functionality for a method based on the types which are supplied. For example, you could have one public method which operated differently based on whether it is called with a string, two string, or a number.
 
 In a stringly typed language, you can specify the following:
-```
+```csharp
 string myFunction(string s) {
     return "I'm a string";
 }
@@ -17,7 +17,7 @@ string myFunction(int i) {
 
 This a difficult to do in javascript without a lot of messy "typeof" statements, and handling arbitrary numbers of arguments makes this even harder. Here's how you would get the same functionality as the above example with overload.js:
 
-```
+```javascript
 function myFunction() {
     return overload(arguments)
     
@@ -35,7 +35,7 @@ function myFunction() {
 
 You can use the constructors of any object type including custom object you create:
 
-```
+```javascript
 var MyObj = function(){};
 
 function myFunction() {
@@ -59,7 +59,7 @@ By default, if a set of parameters that does not match any of your overloads has
 
 ## Examples
 ### Simple Overloads
-```
+```javascript
 function overloadedFunction() {
     return overload(arguments)
     
@@ -80,7 +80,7 @@ function overloadedFunction() {
 ```
 ### Any type
 To allow any data type through, just pass the string "ANY" into the when statement.
-```
+```javascript
 function overloadedFunction() {
     return overload(arguments)
     
@@ -98,7 +98,7 @@ function overloadedFunction() {
 
 ### Overload with parameter array
 Comparable to c# method(params string[] args)
-```
+```javascript
 function concat() {
     return overload(arguments)
     
@@ -120,7 +120,7 @@ console.log(concat('string1','string2','string3')); // 'string1string2string3'
 
 Without this, the second call would throw an error. 
 
-```
+```javascript
 function concat() {
     return overload(arguments)
     
@@ -141,4 +141,45 @@ function concat() {
 
 console.log(concat('string1','string2','string3')); // 'string1string2string3'
 console.log(concat('string1', 5 ,'string3')); // 'Not all are strings'
+```
+
+### Expect
+
+You may specity a type to expect from the overloaded method, regardless of which overload is called. This can be done eitehr through the overload constructor, or through the .expect(Type) call.
+
+
+```javascript
+function myFunction() {
+    return overload(arguments)
+    
+    .expect(String)
+    
+    .when(String).do(function (str) {
+        return "I'm a string";
+    })
+    
+    .when(Number).do(function (num) {
+        return num; // Will throw error
+    })
+    
+    .result();
+}
+```
+
+This is the same as:
+
+```javascript
+function myFunction() {
+    return overload(arguments, String)
+    
+    .when(String).do(function (str) {
+        return "I'm a string";
+    })
+    
+    .when(Number).do(function (num) {
+        return num; // Will throw error
+    })
+    
+    .result();
+}
 ```
