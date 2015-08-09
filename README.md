@@ -4,7 +4,7 @@ Overload-like type-based functionality for javascript
 ## Overview
 Overload allows you to specify different functionality for a method based on the types which are supplied. For example, you could have one public method which operated differently based on whether it is called with a string, two string, or a number.
 
-In a stringly typed language, you can specify the following:
+In a strongly typed language, you can specify the following:
 ```csharp
 string myFunction(string s) {
     return "I'm a string";
