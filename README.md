@@ -41,7 +41,7 @@ var MyObj = function(){};
 function myFunction() {
     return overload(arguments)
     
-    .when(MyObj).do(function (str) {
+    .when(MyObj).do(function (myObj) {
         return "I'm a custom object";
     })
     
