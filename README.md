@@ -124,7 +124,7 @@ Without this, the second call would throw an error.
 function concat() {
     return overload(arguments)
     
-    .when(String).lastAsParamArray().do(function (str) {
+    .when([String]).do(function (str) {
         var s = '';
         for (var i in arguments) {
             s += arguments[i];
