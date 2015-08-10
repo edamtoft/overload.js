@@ -97,12 +97,12 @@ function overloadedFunction() {
 ```
 
 ### Overload with parameter array
-Comparable to c# method(params string[] args). Passes array parameters to the called function as an array (as opposed to the original parameters);
+Comparable to c# method(params string[] args). Passes array parameters to the called function as an array (as opposed to the original parameters); Must be the last parameter.
 ```javascript
 function concat() {
     return overload(arguments)
     
-    .when(String).lastAsParamArray().do(function (strings) {
+    .when([String]).do(function (strings) {
         var s = '';
         for (var i in strings) {
             s += strings[i];

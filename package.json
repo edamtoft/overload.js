@@ -12,10 +12,10 @@
     "overload",
     "types"
   ],
-  "homepage": "https://github.com/edamtoft/overload",
+  "homepage": "https://github.com/edamtoft/overload.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/edamtoft/overload"
+    "url": "https://github.com/edamtoft/overload.js"
   },
   "devDependencies": {
     "grunt": "^0.4.5",

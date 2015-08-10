@@ -22,10 +22,20 @@
     // When...do functions describle the the conditions for overloads.
     // Example: .when(String, String).do(function(s1, s2){...}) 
     this.when = function () {
-
+            
       var _when = this;
-      var types = arguments;
+      var types = [];
       var lastAsArray = false;
+      
+      for (var i in arguments) {
+        if (Array.isArray(arguments[i])) {
+          types.push(arguments[i][0]);
+          lastAsArray = true;
+        } else {
+          types.push(arguments[i]);
+        }
+      }
+
       
       // The function to call if the when function's types are met. Will pass in the
       // original arguments and be called in the context of the overload statement.
@@ -54,14 +64,6 @@
         }
 
         return _overload;
-      };
-      
-      // Treats the last param of the when statement as a param array.
-      // Example: .when(String, Number).lastAsParamArray() would be called when
-      // ('str', 1, 2, 3, 4, 5) was called. Passes the array params as an array.
-      this.lastAsParamArray = function () {
-        lastAsArray = true;
-        return _when;
       };
 
       return _when;

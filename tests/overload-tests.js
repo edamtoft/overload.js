@@ -23,7 +23,7 @@ function testFunction() {
     return 0;
   })
   
-  .when(Number).lastAsParamArray().do(function(numbers){
+  .when([Number]).do(function(numbers){
     if (!Array.isArray(numbers)) {
       throw new Error('Array not created!');
     }
@@ -46,13 +46,17 @@ function testFunction() {
     return 'object+any';
   })
   
+  .when(Object, [Number]).do(function(obj, obj2){
+    return 'object+any...';
+  })
+  
   .result();
 }
 
 module.exports = {
   
   'tests': function(test) {
-    test.expect(10);
+    test.expect(11);
     
     test.deepEqual(testFunction('string'), 'singleString: string');
     test.deepEqual(testFunction('string','string'), 'twoStrings: string, string');
@@ -78,6 +82,8 @@ module.exports = {
     
     test.deepEqual(testFunction(testObject1, 'string'), 'object+any', 'Should allow any type');
     test.deepEqual(testFunction(testObject1, 1), 'object+any', 'Should allow any type');
+    
+    test.deepEqual(testFunction(testObject1, 1, 2, 3, 4), 'object+any...', 'Should treat as param array.');
     
     test.done();
   }
