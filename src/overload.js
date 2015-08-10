@@ -113,9 +113,15 @@
     }
     
     function matchType(obj, typ) {
-      return typ === 'ANY' ||
-        obj.constructor === typ ||
-        (typeof obj === 'object' && obj instanceof typ);
+      if (typeof typ === 'string' && 
+        typ.toUpperCase() === 'ANY') {
+        return true;
+      }
+      if (typeof typ === 'function' && 
+        (obj.constructor === typ || obj instanceof typ)) {
+        return true;
+      }
+      return false;
     }
   };
 

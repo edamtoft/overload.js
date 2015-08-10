@@ -42,13 +42,17 @@ function testFunction() {
     return 'OtherObject';
   })
   
+  .when(Object, 'ANY').do(function(obj, obj2){
+    return 'object+any';
+  })
+  
   .result();
 }
 
 module.exports = {
   
   'tests': function(test) {
-    test.expect(8);
+    test.expect(10);
     
     test.deepEqual(testFunction('string'), 'singleString: string');
     test.deepEqual(testFunction('string','string'), 'twoStrings: string, string');
@@ -71,6 +75,9 @@ module.exports = {
     }, 'Function returned a number, but we told it to expect a string, so we should get an error.');
     
     test.deepEqual(testFunction(1, 2, 3), '6', 'Should be treated as param array');
+    
+    test.deepEqual(testFunction(testObject1, 'string'), 'object+any', 'Should allow any type');
+    test.deepEqual(testFunction(testObject1, 1), 'object+any', 'Should allow any type');
     
     test.done();
   }
