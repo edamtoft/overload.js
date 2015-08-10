@@ -23,11 +23,14 @@ function testFunction() {
     return 0;
   })
   
-  .when(Number).lastAsParamArray().do(function(){
-    var n = 0;
-    for (var i = 0; i < arguments.length; i++) {
-      n += arguments[i];
+  .when(Number).lastAsParamArray().do(function(numbers){
+    if (!Array.isArray(numbers)) {
+      throw new Error('Array not created!');
     }
+    var n = 0;
+    numbers.forEach(function(num) {
+      n += num;
+    });
     return n.toString();
   })
   

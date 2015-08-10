@@ -33,7 +33,23 @@
         if (hasResult) return _overload;
 
         if (matchTypes(types, args, lastAsArray)) {
-          result = callback.apply(args.caller, args);
+          
+          var argArray = [];
+          var paramArray = [];
+          
+          for (var i in args) {
+            if (lastAsArray && i >= types.length -1) {
+              paramArray.push(args[i]);
+            } else {
+              argArray.push(args[i]);
+            }
+          }
+          
+          if (paramArray.length > 0) {
+            argArray.push(paramArray);
+          }
+          
+          result = callback.apply(args.caller, argArray);
           hasResult = true;
         }
 
@@ -42,9 +58,7 @@
       
       // Treats the last param of the when statement as a param array.
       // Example: .when(String, Number).lastAsParamArray() would be called when
-      // ('str', 1, 2, 3, 4, 5) was called. Passes through the original arguments, so
-      // should be handled with the arguments object.
-      // TODO: Pass as array?
+      // ('str', 1, 2, 3, 4, 5) was called. Passes the array params as an array.
       this.lastAsParamArray = function () {
         lastAsArray = true;
         return _when;
